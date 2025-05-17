@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Animated, Button, Dimensions, View } from "react-native";
+import { Animated, Dimensions, Switch, View } from "react-native";
 import "../app/styles/globals.css";
 import Loading from "./loading";
 
@@ -22,29 +22,34 @@ export default function Index() {
   }, [loading]);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "flex-start",
-        alignItems: "center",
-      }}
-    >
-      <Button
-        title={loading ? "Hide Loading" : "Show Loading"}
-        onPress={() => setLoading(!loading)}
-      />
-      {loading && (
-        <Animated.View
-          style={{
-            width: Dimensions.get("window").width,
-            height: Dimensions.get("window").height - 100,
-            backgroundColor: "lightblue",
-            opacity: fadeAnim,
-          }}
-        >
-          <Loading />
-        </Animated.View>
-      )}
+    <View style={{ flex: 1 }}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "flex-start",
+          alignItems: "center",
+          paddingTop: 20,
+        }}
+      >
+        <Switch
+          value={loading}
+          onValueChange={setLoading}
+          trackColor={{ false: "#767577", true: "#81b0ff" }}
+          thumbColor={loading ? "#f5dd4b" : "#f4f3f4"}
+        />
+        {loading && (
+          <Animated.View
+            style={{
+              width: Dimensions.get("window").width,
+              height: Dimensions.get("window").height - 100,
+              backgroundColor: "lightblue",
+              opacity: fadeAnim,
+            }}
+          >
+            <Loading />
+          </Animated.View>
+        )}
+      </View>
     </View>
   );
 }
